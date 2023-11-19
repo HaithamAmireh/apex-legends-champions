@@ -1,0 +1,51 @@
+# Compiled files
+*.pyc
+*.pyo
+__pycache__/
+
+# Byte-compiled Python
+*.pyc
+*.pyo
+__pycache__/
+
+# C extensions
+*.so
+
+# Distribution/dist folder
+dist/
+
+# Build folder
+build/
+
+# Python egg metadata
+*.egg-info/
+
+# Cache folders
+.cache/
+
+# Compiled source
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Temporary files
+*~
+*.swp
+*.tmp
+
+# Logs and databases
+*.log
+*.sqlite
+*.db
+*.sqlite3
+
+# Environment variables
+.env
+
+# Dependency folders
+venv/
+env/
+
