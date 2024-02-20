@@ -48,6 +48,11 @@ async def getLegend(alias: str):
     response = supabase.table("legends").select("*").eq("alias", alias).execute()
     return response
     
+@app.get("/getClass/{class_}")
+async def getClass(class_: str):
+    response = supabase.table("legends").select("*").eq("class", class_).execute()
+    return response
+
 @app.post('/addLegend')
 async def addLegend(legendData: LegendData):
     data = legendData.model_dump()
