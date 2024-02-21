@@ -16,7 +16,7 @@ tags_metadata = [
     },
     {
         "name": "Group By Class",
-        "description": "Returns the Legends of that fall under the same class",
+        "description": "Returns the Legends that fall under the same class",
     },
 ]
 
