@@ -5,7 +5,33 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-app = FastAPI()
+tags_metadata = [
+    {
+        "name": "All Legends",
+        "description": "Returns all legends data",
+    },
+    {
+        "name": "Single Legend",
+        "description": "Returns one legend data",
+    },
+    {
+        "name": "Group By Class",
+        "description": "Returns the Legends of that fall under the same class",
+    },
+]
+
+
+app = FastAPI(
+    title="Apex Legends API",
+    description="API for Apex Legends Champions Information",
+    contact={
+        "name": "Haitham Amireh",
+        "email": "haithamamireh@gmail.com",
+    },
+    openapi_tags=tags_metadata,
+    swagger_ui_parameters={"defaultModelsExpandDepth": -1},
+)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # Allow all origins
@@ -38,22 +64,22 @@ key = os.environ.get("SUPABASE_KEY")
 supabase = create_client(url or "", key or "")
 
 
-@app.get('/getLegendData')
+@app.get('/getLegendData', tags=["All Legends"])
 async def getLegendsData():
     response = supabase.table('legends').select("*").execute()
     return response
 
-@app.get("/getLegend/{alias}")
+@app.get("/getLegend/{alias}", tags=["Single Legend"])
 async def getLegend(alias: str):
     response = supabase.table("legends").select("*").eq("alias", alias).execute()
     return response
     
-@app.get("/getClass/{class_}")
+@app.get("/getClass/{class_}", tags=["Group By Class"])
 async def getClass(class_: str):
     response = supabase.table("legends").select("*").eq("class", class_).execute()
     return response
 
-@app.post('/addLegend')
+@app.post('/addLegend', include_in_schema=False)
 async def addLegend(legendData: LegendData):
     data = legendData.model_dump()
     existingData = (supabase.table('legends').select(
