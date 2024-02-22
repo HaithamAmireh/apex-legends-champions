@@ -64,42 +64,60 @@ key = os.environ.get("SUPABASE_KEY")
 supabase = create_client(url or "", key or "")
 
 
-@app.get('/getLegendData', tags=["All Legends"])
+@app.get("/getLegendData", tags=["All Legends"])
 async def getLegendsData():
-    response = supabase.table('legends').select("*").execute()
+    response = (
+        supabase.table("ChampionsData").select("*").order("id", desc=False).execute()
+    )
     return response
+
 
 @app.get("/getLegend/{alias}", tags=["Single Legend"])
 async def getLegend(alias: str):
-    response = supabase.table("legends").select("*").eq("alias", alias).execute()
-    return response
-    
-@app.get("/getClass/{class_}", tags=["Group By Class"])
-async def getClass(class_: str):
-    response = supabase.table("legends").select("*").eq("class", class_).execute()
+    response = (
+        supabase.table("ChampionsData")
+        .select("*")
+        .ilike("alias", alias)
+        .order("id", desc=False)
+        .execute()
+    )
     return response
 
-@app.post('/addLegend', include_in_schema=False)
+
+@app.get("/getClass/{class_}", tags=["Group By Class"])
+async def getClass(class_: str):
+    response = (
+        supabase.table("ChampionsData")
+        .select("*")
+        .eq("class", class_)
+        .order("id", desc=False)
+        .execute()
+    )
+    return response
+
+
+@app.post("/addLegend", include_in_schema=False)
 async def addLegend(legendData: LegendData):
     data = legendData.model_dump()
-    existingData = (supabase.table('legends').select(
-        "*").execute()).model_dump()
+    existingData = (supabase.table("ChampionsData").select("*").execute()).model_dump()
     if data["alias"] in existingData:
         return {"Message:": "Legend already added"}
-    supabase.table('legends').insert({
-        "alias": data["alias"],
-        "quote": data["quote"],
-        "wiki": data["wiki"],
-        "real-name": data["realname"],
-        "age": data["age"],
-        "home-world": data["homeworld"],
-        "class": data["class_"],
-        "class-passive": data["classpassive"],
-        "tactical": data["tactical"],
-        "tactical-wiki": data["tacticalwiki"],
-        "passive": data["passive"],
-        "passive-wiki": data["passivewiki"],
-        "ultimate": data["ultimate"],
-        "ultimate-wiki": data["ultimatewiki"],
-    }).execute()
+    supabase.table("ChampionsData").insert(
+        {
+            "alias": data["alias"],
+            "quote": data["quote"],
+            "wiki": data["wiki"],
+            "real-name": data["realname"],
+            "age": data["age"],
+            "home-world": data["homeworld"],
+            "class": data["class_"],
+            "class-passive": data["classpassive"],
+            "tactical": data["tactical"],
+            "tactical-wiki": data["tacticalwiki"],
+            "passive": data["passive"],
+            "passive-wiki": data["passivewiki"],
+            "ultimate": data["ultimate"],
+            "ultimate-wiki": data["ultimatewiki"],
+        }
+    ).execute()
     return legendData
