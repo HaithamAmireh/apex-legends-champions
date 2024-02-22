@@ -4,6 +4,7 @@ from supabase.client import create_client
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from enum import Enum
 
 tags_metadata = [
     {
@@ -58,6 +59,42 @@ class LegendData(BaseModel):
     ultimatewiki: str
 
 
+class AvailableClasses(str, Enum):
+    Assault = "Assault"
+    Recon = "Recon"
+    Support = "Support"
+    Controller = "Controller"
+    Skirmisher = "Skirmisher"
+
+
+class AvailableLegends(str, Enum):
+    Ash = "Ash"
+    Ballistic = "Ballistic"
+    Bangalore = "Bangalore"
+    Bloodhound = "Bloodhound"
+    Catalyst = "Catalyst"
+    Caustic = "Caustic"
+    Conduit = "Conduit"
+    Crypto = "Crypto"
+    Fuse = "Fuse"
+    Gibraltar = "Gibraltar"
+    Horizon = "Horizon"
+    Lifeline = "Lifeline"
+    Loba = "Loba"
+    Mirage = "Mirage"
+    MadMaggie = "MadMaggie"
+    NewCastle = "NewCastle"
+    Octane = "Octane"
+    Pathfinder = "Pathfinder"
+    Rampart = "Rampart"
+    Revenant = "Revenant"
+    Seer = "Seer"
+    Valkyrie = "Valkyrie"
+    Vantage = "Vantage"
+    Wraith = "Wraith"
+    Wattson = "Wattson"
+
+
 load_dotenv()
 url = os.environ.get("SUPABASE_URL")
 key = os.environ.get("SUPABASE_KEY")
@@ -73,7 +110,7 @@ async def getLegendsData():
 
 
 @app.get("/getLegend/{alias}", tags=["Single Legend"])
-async def getLegend(alias: str):
+async def getLegend(alias: AvailableLegends):
     response = (
         supabase.table("ChampionsData")
         .select("*")
@@ -85,7 +122,7 @@ async def getLegend(alias: str):
 
 
 @app.get("/getClass/{class_}", tags=["Group By Class"])
-async def getClass(class_: str):
+async def getClass(class_: AvailableClasses):
     response = (
         supabase.table("ChampionsData")
         .select("*")
