@@ -114,7 +114,7 @@ async def getLegend(alias: AvailableLegends):
     response = (
         supabase.table("ChampionsData")
         .select("*")
-        .ilike("alias", alias)
+        .ilike("alias", alia.value)
         .order("id", desc=False)
         .execute()
     )
@@ -126,7 +126,7 @@ async def getClass(class_: AvailableClasses):
     response = (
         supabase.table("ChampionsData")
         .select("*")
-        .eq("class", class_)
+        .eq("class", class_.value)
         .order("id", desc=False)
         .execute()
     )
