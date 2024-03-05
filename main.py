@@ -101,7 +101,7 @@ key = os.environ.get("SUPABASE_KEY")
 supabase = create_client(url or "", key or "")
 
 
-@app.get("/getLegendData", tags=["All Legends"])
+@app.get("/getAllLegends", tags=["All Legends"])
 async def getLegendsData():
     response = (
         supabase.table("ChampionsData").select("*").order("id", desc=False).execute()
