@@ -96,8 +96,8 @@ class AvailableLegends(str, Enum):
 
 
 #load_dotenv()
-url = os.environ.get("SUPABASE_URL")
-key = os.environ.get("SUPABASE_KEY")
+url = os.getenv("SUPABASE_URL")
+key = os.getenv("SUPABASE_KEY")
 supabase = create_client(url or "", key or "")
 
 
