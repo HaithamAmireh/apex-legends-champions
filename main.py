@@ -99,6 +99,8 @@ class AvailableLegends(str, Enum):
 url = os.getenv("SUPABASE_URL")
 key = os.getenv("SUPABASE_KEY")
 supabase = create_client(url or "", key or "")
+print(url)
+print(key)
 
 
 @app.get("/getAllLegends", tags=["All Legends"])
