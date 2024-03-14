@@ -1,5 +1,7 @@
 # Use the official Python image as a base
 FROM python
+ARG SUPABASE_KEY
+ARG SUPABASE_URL
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
