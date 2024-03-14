@@ -1,5 +1,5 @@
 import os
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 from supabase.client import create_client
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -95,7 +95,7 @@ class AvailableLegends(str, Enum):
     Wattson = "Wattson"
 
 
-load_dotenv()
+#load_dotenv()
 url = os.environ.get("SUPABASE_URL")
 key = os.environ.get("SUPABASE_KEY")
 supabase = create_client(url or "", key or "")
