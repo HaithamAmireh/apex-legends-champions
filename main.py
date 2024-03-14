@@ -99,12 +99,10 @@ class AvailableLegends(str, Enum):
 url = os.getenv("SUPABASE_URL")
 key = os.getenv("SUPABASE_KEY")
 supabase = create_client(url or "", key or "")
-print(url)
-print(key)
 
 
 @app.get("/getAllLegends", tags=["All Legends"])
-async def getLegendsData():
+async def getAllLegends():
     response = (
         supabase.table("ChampionsData").select("*").order("id", desc=False).execute()
     )
