@@ -22,8 +22,5 @@ COPY . /app
 # Expose port 8000 to the outside world
 EXPOSE 8000
 
-# Copy the .env file to the working directory in the container
-COPY .env /app/.env
-
 # Command to run the application with python-dotenv loaded
 CMD ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
