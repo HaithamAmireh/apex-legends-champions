@@ -68,6 +68,7 @@ class AvailableClasses(str, Enum):
 
 
 class AvailableLegends(str, Enum):
+    Alter = "Alter
     Ash = "Ash"
     Ballistic = "Ballistic"
     Bangalore = "Bangalore"
