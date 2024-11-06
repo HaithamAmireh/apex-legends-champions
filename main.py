@@ -99,6 +99,7 @@ class AvailableLegends(str, Enum):
 #load_dotenv()
 url = os.getenv("SUPABASE_URL")
 key = os.getenv("SUPABASE_KEY")
+url_fake = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
 supabase = create_client(url or "", key or "")
 
 
