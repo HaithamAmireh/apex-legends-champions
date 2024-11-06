@@ -98,8 +98,7 @@ class AvailableLegends(str, Enum):
 
 #load_dotenv()
 url = os.getenv("SUPABASE_URL")
-key = os.getenv("SUPABASE_KEY")
-key_fake = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRlb294eHN0eGhjaHNpZnZvam53Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5OTcxODExNiwiZXhwIjoyMDE1Mjk0MTE2fQ.Qsg1MDSAJLWJD2929290J"
 supabase = create_client(url or "", key or "")
 
 
